@@ -28,8 +28,17 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
   const doReorder = (event: CustomEvent<ItemReorderEventDetail>) => {
     event.detail.complete();
   };
+
+  const slideOpts = {
+    initialSlide: 1,
+    speed: 500,
+  };
+
   return (
-    <IonSlides pager>
+    <IonSlides pager options={slideOpts}>
+      <IonSlide>
+        <IonLabel>Slide 1</IonLabel>
+      </IonSlide>
       <IonSlide>
         <IonCard>
           <IonItem>
@@ -101,7 +110,7 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
         </IonCard>
       </IonSlide>
       <IonSlide>
-        <IonLabel>Slide 2</IonLabel>
+        <IonLabel>Slide 3</IonLabel>
       </IonSlide>
     </IonSlides>
   );
