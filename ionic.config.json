@@ -1,0 +1,7 @@
+{
+  "name": "playground",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "react"
+}
