@@ -17,7 +17,7 @@ import {
   IonSlide,
   IonSlides,
 } from "@ionic/react";
-import React from "react";
+import React, { useRef } from "react";
 import { ItemReorderEventDetail } from "@ionic/core";
 import { pencil, trash, home, addOutline } from "ionicons/icons";
 import "./ExploreContainer.css";
@@ -34,8 +34,10 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
     speed: 500,
   };
 
+  const slidesRef = useRef() as React.MutableRefObject<HTMLIonSlidesElement>;
+
   return (
-    <IonSlides pager options={slideOpts}>
+    <IonSlides pager options={slideOpts} ref={slidesRef}>
       <IonSlide>
         <IonLabel>Slide 1</IonLabel>
       </IonSlide>
@@ -56,10 +58,17 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
                     disabled={false}
                     onIonItemReorder={doReorder}
                   >
-                    <IonItemSliding>
+                    <IonItemSliding
+                      onIonDrag={() => {
+                        slidesRef.current.lockSwipes(true);
+                        setTimeout(() => {
+                          slidesRef.current.lockSwipes(false);
+                        }, 500);
+                      }}
+                    >
                       <IonItemOptions side="start">
                         <IonItemOption
-                          onClick={() => console.log("SWIPE END 1")}
+                          onClick={() => console.log("SWIPE DELETE 1")}
                           color="danger"
                         >
                           <IonIcon slot="icon-only" icon={trash} />
@@ -72,14 +81,14 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
                       </IonItem>
                       <IonItemOptions side="end">
                         <IonItemOption
-                          onClick={() => console.log("SWIPE END 2")}
+                          onClick={() => console.log("SWIPE DELETE 2")}
                           color="danger"
                         >
                           <IonIcon slot="icon-only" icon={trash} />
                         </IonItemOption>
                       </IonItemOptions>
                     </IonItemSliding>
-                    <IonItemSliding>
+                    {/* <IonItemSliding>
                       <IonItemOptions side="start">
                         <IonItemOption
                           onClick={() => console.log("SWIPE END 11")}
@@ -101,7 +110,7 @@ const ExploreContainer: React.FC<ContainerProps> = () => {
                           <IonIcon slot="icon-only" icon={trash} />
                         </IonItemOption>
                       </IonItemOptions>
-                    </IonItemSliding>
+                    </IonItemSliding> */}
                   </IonReorderGroup>
                 </IonCol>
               </IonRow>
